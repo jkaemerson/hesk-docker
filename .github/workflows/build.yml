@@ -3,6 +3,7 @@ name: Publish Docker image
 on:
   release:
     types: [published]
+  workflow_dispatch:  # Ajout de la possibilité de déclencher manuellement
 
 jobs:
   push_to_registries:
