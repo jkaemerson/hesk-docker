@@ -1,49 +1,34 @@
-name: Docker Build
+name: Build
 
 on:
   push:
-    tags:
-      - 'v*.*.*'
-
-permissions: 
-  contents: read
-  packages: write
-
+    tags: '*'
+			   
 jobs:
-  build-docker-image:
+  prepare-data:
+    name: Prepare Data
     runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.prepare.outputs.SOURCE_TAG }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - id: prepare
+        name: Prepare environment variables
+        run: |
+          echo ::set-output name=SOURCE_NAME::${GITHUB_REF#refs/*/}
+          echo ::set-output name=SOURCE_BRANCH::${GITHUB_REF#refs/heads/}
+          echo ::set-output name=SOURCE_TAG::${GITHUB_REF#refs/tags/}
 
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
-
-      - name: Set up Docker Buildx
-        id: buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Login to GHCR
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v4
-        with:
-          images: ghcr.io/jkaemerson/hesk-docker
-          tags: |
-            type=raw,value=latest,enable={{is_default_branch}}
-            type=ref,event=tag
-
-      - name: Build and push
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          platforms: linux/amd64,linux/arm64
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+  build:
+    name: GitHub Container Registry
+    runs-on: ubuntu-latest
+    needs: [prepare-data]
+    steps:
+    - uses: actions/checkout@v4
+    - name: Login
+      run: echo ${{ secrets.GHCR_PAT }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+    - name: Build
+      run: docker build . --file Dockerfile --tag ghcr.io/jkaemerson/hesk-docker:${{ needs.prepare-data.outputs.tag }} --tag ghcr.io/jkaemerson/hesk-docker:latest
+    - name: Push
+      run: |
+        docker push ghcr.io/jkaemerson/hesk-docker:latest
+        docker push ghcr.io/jkaemerson/hesk-docker:${{ needs.prepare-data.outputs.tag }}
