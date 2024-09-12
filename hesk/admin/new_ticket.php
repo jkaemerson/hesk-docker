@@ -1146,6 +1146,10 @@ function print_select_category($number_of_categories)
                 </a>
                 <?php endforeach; ?>
             </div>
+            <div class="footer__link">
+                <p>Veillez à respecter les bonnes pratiques listées <a href="https://www.google.com" target="_blank">ICI</a> lorsque vous sélectionnez une catégorie et un ingénieur.</p>
+                <p>Please follow the best practices listed <a href="https://www.google.com" target="_blank">HERE</a> when choosing a category and an engineer.</p>
+            </div>
             <?php
         }
         ?>
