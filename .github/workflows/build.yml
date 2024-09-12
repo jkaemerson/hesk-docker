@@ -1,7 +1,9 @@
 name: Build
 on:
   push:
-    tags: '*'		   
+    tags: '*'	
+  release:
+    types: [created]
 jobs:
   prepare-data:
     name: Prepare Data
