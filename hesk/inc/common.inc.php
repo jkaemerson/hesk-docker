@@ -14,6 +14,8 @@
 /* Check if this is a valid include */
 if (!defined('IN_SCRIPT')) {die('Invalid attempt');} 
 
+date_default_timezone_set('Europe/Paris');
+
 #error_reporting(E_ALL);
 
 // Load Composer dependencies
