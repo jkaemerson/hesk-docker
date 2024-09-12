@@ -1,1 +1,3 @@
 <!-- Custom code to be included before </body> tag -->
+<p>Please follow the best practices listed <a href="https://www.google.com" target="_blank">HERE</a> when choosing a category and an engineer.</p>
+<p>Veillez à consulter les bonnes pratiques situées <a href="https://www.google.com" target="_blank">ICI</a> lorsque vous sélectionnez une catégorie de ticket ou un ingénieur.</p>
