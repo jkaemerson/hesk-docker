@@ -14,8 +14,8 @@ $hesk_settings['admin_css'] = getenv('HESK_ADMIN_CSS') ?: 0;
 $hesk_settings['admin_css_url'] = getenv('HESK_ADMIN_CSS_URL') ?: 'https://www.example.com/hesk-style.css';
 
 // --> Language settings
-$hesk_settings['can_sel_lang'] = getenv('HESK_CAN_SEL_LANG') ?: 0;
-$hesk_settings['language'] = getenv('HESK_LANGUAGE') ?: 'English';
+$hesk_settings['can_sel_lang'] = getenv('HESK_CAN_SEL_LANG') ?: 1;
+$hesk_settings['language'] = getenv('HESK_LANGUAGE') ?: 'Français';
 $hesk_settings['languages'] = array(
     'English' => array('folder' => 'en', 'hr' => '------ Reply above this line ------'),
 );
