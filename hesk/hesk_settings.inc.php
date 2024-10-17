@@ -93,7 +93,7 @@ $hesk_settings['attachments'] = array(
     'use' => getenv('HESK_ATTACHMENTS_USE') ?: 1,
     'max_number' => getenv('HESK_ATTACHMENTS_MAX_NUMBER') ?: 2,
     'max_size' => getenv('HESK_ATTACHMENTS_MAX_SIZE') ?: 2097152,
-    'allowed_types' => array('.gif','.jpg','.png','.zip','.rar','.csv','.doc','.docx','.xls','.xlsx','.txt','.pdf')
+    'allowed_types' => array('.msg','.gif','.jpg','.png','.zip','.rar','.csv','.doc','.docx','.xls','.xlsx','.txt','.pdf')
 );
 
 // ==> KNOWLEDGEBASE
